@@ -6,15 +6,8 @@ import com.smartgwt.client.widgets.Window;
 
 public class MainWindow extends Window {
 
-	private static MainWindow instance = null;
 	private Canvas content;
 
-	public static MainWindow getInstance(String title) {
-		if (instance == null) {
-			instance = new MainWindow(title);
-		}
-		return instance;
-	}
 
 	public MainWindow(String title) {
 		super();

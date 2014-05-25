@@ -7,14 +7,7 @@ import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 
 public class Index extends Canvas {
-private static Index instance = null;
 
-public static Index getInstance() {
-	if (instance == null) {
-		instance = new Index();
-	}
-	return instance;
-}
 
 public Index() {
 		super();
