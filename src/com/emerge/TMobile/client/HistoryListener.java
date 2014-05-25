@@ -1,5 +1,6 @@
 package com.emerge.TMobile.client;
 
+import com.emerge.TMobile.client.pages.BeginAudit;
 import com.emerge.TMobile.client.pages.CommunicationHub;
 import com.emerge.TMobile.client.pages.Index;
 import com.emerge.TMobile.client.widgets.MainWindow;
@@ -23,6 +24,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 		System.out.println("Current State : " + history);
 
 		if (history.equalsIgnoreCase("index")) {
+			
 			if (mainWindow != null) {
 				mainWindow.destroy();
 				RootPanel.get().remove(mainWindow);
@@ -40,6 +42,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 			}
 
 			mainWindow = new MainWindow("TMobile :: Audit");
+			mainWindow.setContent(new BeginAudit());
 			RootPanel.get().add(mainWindow);
 
 		} else if (history.equalsIgnoreCase("reporting")) {
