@@ -1,0 +1,3 @@
+# Module tmobile
+# RPC service class, partial path of RPC policy file
+com.emerge.TMobile.client.GreetingService, DCE5014BD9AB2394523931E975F15FF7.gwt.rpc

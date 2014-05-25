@@ -1,0 +1,2 @@
+serviceClass: com.emerge.TMobile.client.GreetingService
+path: DCE5014BD9AB2394523931E975F15FF7.gwt.rpc
