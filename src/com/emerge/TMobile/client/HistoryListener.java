@@ -1,11 +1,11 @@
 package com.emerge.TMobile.client;
 
+import com.emerge.TMobile.client.pages.Index;
 import com.emerge.TMobile.client.widgets.MainWindow;
 import com.emerge.TMobile.shared.QueryString;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
-
 public class HistoryListener implements ValueChangeHandler<String> {
 	MainWindow mainWindow = MainWindow.getInstance("TMobile");
 
@@ -20,12 +20,12 @@ public class HistoryListener implements ValueChangeHandler<String> {
 		System.out.println("Current State : " + history);
 
 		if (history.equalsIgnoreCase("index")) {
-
 			mainWindow.setTitle("TMobile :: Index");
+			mainWindow.setContent(Index.getInstance());
 			mainWindow.redraw();
 
 		} else if (history.equalsIgnoreCase("audit")) {
-			
+
 			if (QueryString.getParams().get("id") != null) {
 				int Id = Integer.parseInt(QueryString.getParams().get("id"));
 			}
@@ -36,6 +36,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 
 			mainWindow.setTitle("TMobile :: audit ");
 			mainWindow.redraw();
+			
 		} else if (history.equalsIgnoreCase("reporting")) {
 
 			mainWindow.setTitle("TMobile :: audit");
