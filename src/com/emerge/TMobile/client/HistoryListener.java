@@ -1,8 +1,9 @@
 package com.emerge.TMobile.client;
 
-import com.emerge.TMobile.client.pages.BeginAudit;
-import com.emerge.TMobile.client.pages.CommunicationHub;
+import com.emerge.TMobile.client.pages.Audit;
+import com.emerge.TMobile.client.pages.CommHub;
 import com.emerge.TMobile.client.pages.Index;
+import com.emerge.TMobile.client.pages.Reporting;
 import com.emerge.TMobile.client.widgets.MainWindow;
 import com.emerge.TMobile.shared.QueryString;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -42,7 +43,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 			}
 
 			mainWindow = new MainWindow("TMobile :: Audit");
-			mainWindow.setContent(new BeginAudit());
+			mainWindow.setContent(new Audit());
 			RootPanel.get().add(mainWindow);
 
 		} else if (history.equalsIgnoreCase("reporting")) {
@@ -53,6 +54,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 			}
 
 			mainWindow = new MainWindow("TMobile :: Reporting");
+			mainWindow.setContent(new Reporting());
 			RootPanel.get().add(mainWindow);
 
 		} else if (history.equalsIgnoreCase("Communication")) {
@@ -63,7 +65,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 			}
 
 			mainWindow = new MainWindow("TMobile :: Communication");
-			mainWindow.setContent(new CommunicationHub());
+			mainWindow.setContent(new CommHub());
 			RootPanel.get().add(mainWindow);
 
 		} else {

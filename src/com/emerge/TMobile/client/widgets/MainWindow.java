@@ -11,11 +11,19 @@ public class MainWindow extends Window {
 
 	public MainWindow(String title) {
 		super();
+		this.setTitle(title);
+		this.setHeaderIcon("silk/layout_content.png");
 		this.setWidth100();
 		this.setHeight100();
-		// this.setCanDragReposition(false);
-		// this.setCanDragResize(false);
-		this.setTitle(title);
+		this.setShowMinimizeButton(false);
+		this.setShowCloseButton(true);
+		this.setCanDragReposition(false);
+		this.setCanDragResize(false);
+		this.setShowShadow(false);
+		this.setShowCloseButton(false);
+		this.setPageTop(0);
+		this.centerInPage();
+		
 	}
 
 	public void hideControls() {
@@ -32,13 +40,5 @@ public class MainWindow extends Window {
 		this.setTitle(title);
 	}
 
-	public void clearItems() {
-		// TODO Auto-generated method stub
-		Canvas[] items = this.getItems(); 
-		for(Canvas c : items){
-			c.clear();
-		}
-	
-	}
 
 }
