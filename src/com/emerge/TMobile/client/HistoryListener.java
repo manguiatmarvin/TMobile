@@ -12,10 +12,11 @@ import com.smartgwt.client.widgets.Canvas;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class HistoryListener implements ValueChangeHandler<String> {
-	MainWindow mainWindow;
+	MainWindow mainWindow = MainWindow.getInstance("");
 	Canvas managePanel;
 
 	public HistoryListener() {
+		
 	}
 
 	@Override
@@ -23,6 +24,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 		// TODO Auto-generated method stub
 		String history = QueryString.getHistoryToken();
 		System.out.println("Current State : " + history);
+		
 
 		if (history.equalsIgnoreCase("index")) {
 			

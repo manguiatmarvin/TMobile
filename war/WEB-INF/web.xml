@@ -16,6 +16,17 @@
     <url-pattern>/tmobile/greet</url-pattern>
   </servlet-mapping>
   
+  
+      <servlet>
+    <servlet-name>uploadServlet</servlet-name>
+    <servlet-class>com.emerge.TMobile.server.servlets.UploadFileServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>uploadServlet</servlet-name>
+    <url-pattern>/tmobile/uploadServlet</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>TMobile.html</welcome-file>

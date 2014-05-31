@@ -1,62 +1,96 @@
-<!doctype html>
-<!-- The DOCTYPE declaration above will set the     -->
-<!-- browser's rendering engine into                -->
-<!-- "Standards Mode". Replacing this declaration   -->
-<!-- with a "Quirks Mode" doctype is not supported. -->
+<!DOCTYPE html>
+
 
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+    <title>TMobile Auditing System by EMERGE </title>
+    <!--CSS for loading message at application Startup-->
+    <style type="text/css">
+        body { overflow:hidden }
+        #loading {
+            border: 1px solid #ccc;
+            position: absolute;
+            left: 45%;
+            top: 40%;
+            padding: 2px;
+            z-index: 20001;
+            height: auto;
+        }
 
-    <!--                                                               -->
-    <!-- Consider inlining CSS to reduce the number of requested files -->
-    <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="TMobile.css">
+        #loading a {
+            color: #225588;
+        }
 
-    <!--                                           -->
-    <!-- Any title is fine                         -->
-    <!--                                           -->
-    <title>Web Application Starter Project</title>
-    
-    <!--                                           -->
-    <!-- This script loads your compiled module.   -->
-    <!-- If you add any GWT meta tags, they must   -->
-    <!-- be added before this line.                -->
-    <!--                                           -->
-    <script type="text/javascript" language="javascript" src="tmobile/tmobile.nocache.js"></script>
-  </head>
+        #loading .loadingIndicator {
+            background: white;
+            font: bold 13px tahoma, arial, helvetica;
+            padding: 10px;
+            margin: 0;
+            height: auto;
+            color: #444;
+        }
 
-  <!--                                           -->
-  <!-- The body can have arbitrary html, or      -->
-  <!-- you can leave the body empty if you want  -->
-  <!-- to create a completely dynamic UI.        -->
-  <!--                                           -->
-  <body>
+        #loadingMsg {
+            font: normal 10px arial, tahoma, sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="TMobile.css">
 
-    <!-- OPTIONAL: include this if you want history support -->
-    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
-    
-    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-    <noscript>
-      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
-    </noscript>
+</head>
+<body>
+<div id="loadingWrapper">
+<div id="loading">
+    <div class="loadingIndicator">
+        <!--<img src="images/pieces/48/cube_green.gif" width="32" height="32" style="margin-right:8px;float:left;vertical-align:top;"/>SmartGWT<br/>-->
+        <img src="images/loading.gif" width="16" height="16" style="margin-right:8px;float:left;vertical-align:top;"/>Smart GWT 4.1<br/>
+        <span id="loadingMsg">Loading styles and images...</span></div>
+</div>
+</div>
 
-    <h1>Web Application Starter Project</h1>
 
-    <table align="center">
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Please enter your name:</td>        
-      </tr>
-      <tr>
-        <td id="nameFieldContainer"></td>
-        <td id="sendButtonContainer"></td>
-      </tr>
-      <tr>
-        <td colspan="2" style="color:red;" id="errorLabelContainer"></td>
-      </tr>
-    </table>
-  </body>
+<script type="text/javascript">document.getElementById('loadingMsg').innerHTML = 'Loading Core API...';</script>
+
+<!--include the SC Core API-->
+<script src=tmobile/sc/modules/ISC_Core.js></script>
+
+<!--include SmartClient -->
+<script type="text/javascript">document.getElementById('loadingMsg').innerHTML = 'Loading UI Components...';</script>
+<script src='tmobile/sc/modules/ISC_Foundation.js'></script>
+<script src='tmobile/sc/modules/ISC_Containers.js'></script>
+<script src='tmobile/sc/modules/ISC_Grids.js'></script>
+<script src='tmobile/sc/modules/ISC_Forms.js'></script>
+<script src='tmobile/sc/modules/ISC_RichTextEditor.js'></script>
+<script type="text/javascript">document.getElementById('loadingMsg').innerHTML = 'Loading Data API...';</script>
+<script src='tmobile/sc/modules/ISC_DataBinding.js'></script>
+<script src='tmobile/sc/modules/ISC_Calendar.js'></script>
+<script src='tmobile/sc/modules/ISC_Drawing.js'></script>
+
+<script>
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+// Determine what skin file to load
+var currentSkin = readCookie('skin_name_2_4');
+if (currentSkin == null) currentSkin = "Enterprise";
+</script>
+
+<!--load skin-->
+<script type="text/javascript">document.getElementById('loadingMsg').innerHTML = 'Loading skin...';</script>
+
+<script type="text/javascript">
+document.write("<"+"script src=tmobile/sc/skins/" + currentSkin + "/load_skin.js?isc_version=9.1.js><"+"/script>");
+</script>
+
+<!--include the application JS-->
+<script type="text/javascript">document.getElementById('loadingMsg').innerHTML = 'Loading TMobile System Resources <br>Please wait...';</script>
+<script type="text/javascript" src="tmobile/tmobile.nocache.js"></script>
+</body>
 </html>

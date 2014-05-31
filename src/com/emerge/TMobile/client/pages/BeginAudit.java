@@ -19,7 +19,7 @@ public class BeginAudit extends Canvas {
 
 		VLayout vl = new VLayout();
 		vl.setWidth100();
-		vl.setMembers(Navigation.getInstance(), label);
+		vl.setMembers(new Navigation(), label);
 		this.addChild(vl);
 	}
 }

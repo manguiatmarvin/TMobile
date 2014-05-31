@@ -38,7 +38,7 @@ public class Navigation extends RibbonBar {
         	iconName = "cube_blue"; 
         }else if(iconName.equalsIgnoreCase("audit")){
         	
-        	button.setIcon("pieces/16/" + iconName + ".png");
+        	button.setIcon("tmobile/navigation/" + iconName + ".png");
         	
         	 button.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler(){
 
@@ -51,7 +51,7 @@ public class Navigation extends RibbonBar {
                });
         	 
         }else if(iconName.equalsIgnoreCase("reporting")){
-        	button.setIcon("pieces/16/" + iconName + ".png");
+        	button.setIcon("tmobile/navigation/" + iconName + ".png");
         	
         	  button.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler(){
 
@@ -64,7 +64,7 @@ public class Navigation extends RibbonBar {
               });
         	  
         }else if(iconName.equalsIgnoreCase("communication")){
-            button.setIcon("pieces/16/" + iconName + ".png"); 
+            button.setIcon("tmobile/navigation/" + iconName + ".png"); 
             
             button.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler(){
 
@@ -77,7 +77,7 @@ public class Navigation extends RibbonBar {
             });
             
         }else if(iconName.equalsIgnoreCase("index")){
-            button.setIcon("pieces/16/" + iconName + ".png"); 
+            button.setIcon("tmobile/navigation/" + iconName + ".png"); 
             button.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler(){
 
 				@Override

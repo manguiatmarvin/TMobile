@@ -1,8 +1,13 @@
 package com.emerge.TMobile.client.pages;
 
-import com.emerge.TMobile.client.widgets.RegistrationForm;
+import org.moxieapps.gwt.uploader.client.Uploader;
+import org.moxieapps.gwt.uploader.client.events.*;
+
 import com.emerge.TMobile.client.widgets.VerticalContainer;
-import com.smartgwt.client.types.VerticalAlignment;
+import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.Window;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -10,23 +15,110 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class Index extends Canvas {
 	VerticalContainer vc;
 
-public Index() {
+	private Label progressLabel;
+	private Uploader uploader;
+
+	public Index() {
 		super();
-		this.setWidth100();
-		this.setHeight100();
-		Label label = new Label(
-				"<p>Rising inventory costs and falling commissions demand tighter controls. However, the lack of carrier integration with any point-of-sale system leaves an operational gap.   This gap leaves you vulnerable to human error, carrier inaccuracies, and is exploited by fraudulent activity. <p>"
-			  + "<p>Carrier Insite software effectively eliminates that gap. In turn it allows your organization to quickly discover and address commission discrepancies as well as manage chargebacks.  Both of which lead to a vast reduction in loss and a much improved cash flow.</p>"
-			  + "<p>The minute it becomes available our platform goes to work comparing the data from your carriers portal to that of your point-of-sale.  This includes all available data for activations, upgrades, features, and deactivations.</p>");
+		progressLabel = new Label();
+
+		uploader = new Uploader();
+		 JSONObject params = new JSONObject();
+	     params.put("post_param_name_1", new JSONString("post_param_value_1"));
+	     params.put("post_param_name_2", new JSONString("post_param_value_2"));
+	     params.put("post_param_name_n", new JSONString("post_param_value_n"));
 		
-	    label.setWidth100();
-		label.setHeight100();
-		label.setValign(VerticalAlignment.TOP);
+		uploader.setPostParams(params);
 		
+		uploader.setUploadURL("http://localhost:8080/TMobile/tmobile/uploadServlet")
+				.setButtonText(
+						"<span class=\"buttonText\">Click to Upload</span>")
+				.setButtonTextStyle(
+						".buttonText {font-family: Arial, sans-serif; font-size: 14px; color: #BB4B44}")
+				.setFileSizeLimit("50 MB")
+				.setButtonWidth(150)
+				.setButtonHeight(22)
+				.setButtonCursor(Uploader.Cursor.HAND)
+				.setButtonAction(Uploader.ButtonAction.SELECT_FILE)
+				.setUploadProgressHandler(new UploadProgressHandler() {
+					public boolean onUploadProgress(
+							UploadProgressEvent uploadProgressEvent) {
+						progressLabel.setContents(NumberFormat
+								.getPercentFormat().format(
+										(double) uploadProgressEvent
+												.getBytesComplete()
+												/ (double) uploadProgressEvent
+														.getBytesTotal()));
+						return true;
+					}
+				})
+				.setUploadSuccessHandler(new UploadSuccessHandler() {
+					public boolean onUploadSuccess(
+							UploadSuccessEvent uploadSuccessEvent) {
+						resetText();
+						StringBuilder sb = new StringBuilder();
+						sb.append("File ")
+								.append(uploadSuccessEvent.getFile().getName())
+								.append(" (")
+								.append(NumberFormat.getDecimalFormat()
+										.format(uploadSuccessEvent.getFile()
+												.getSize() / 1024))
+								.append(" KB)")
+								.append(" uploaded successfully at ")
+								.append(NumberFormat.getDecimalFormat().format(
+										uploadSuccessEvent.getFile()
+												.getAverageSpeed() / 1024))
+								.append(" Kb/second");
+						progressLabel.setContents(sb.toString());
+						return true;
+					}
+
+				})
+				.setFileDialogCompleteHandler(new FileDialogCompleteHandler() {
+					public boolean onFileDialogComplete(
+							FileDialogCompleteEvent fileDialogCompleteEvent) {
+						if (fileDialogCompleteEvent.getTotalFilesInQueue() > 0
+								&& uploader.getStats().getUploadsInProgress() <= 0) {
+							progressLabel.setContents("0%");
+							uploader.setButtonText("<span class=\"buttonText\">Uploading...</span>");
+							uploader.startUpload();
+						}
+						return true;
+					}
+				}).setFileQueueErrorHandler(new FileQueueErrorHandler() {
+					public boolean onFileQueueError(
+							FileQueueErrorEvent fileQueueErrorEvent) {
+						resetText();
+						Window.alert("Upload of file "
+								+ fileQueueErrorEvent.getFile().getName()
+								+ " failed due to ["
+								+ fileQueueErrorEvent.getErrorCode().toString()
+								+ "]: " + fileQueueErrorEvent.getMessage());
+						return true;
+					}
+				}).setUploadErrorHandler(new UploadErrorHandler() {
+					public boolean onUploadError(
+							UploadErrorEvent uploadErrorEvent) {
+						resetText();
+						Window.alert("Upload of file "
+								+ uploadErrorEvent.getFile().getName()
+								+ " failed due to ["
+								+ uploadErrorEvent.getErrorCode().toString()
+								+ "]: " + uploadErrorEvent.getMessage());
+						return true;
+					}
+				});
+
 		VLayout vl = new VLayout();
 		vl.setWidth100();
-		vl.setMembers(label,new RegistrationForm());
+		vl.addMember(uploader);
+		vl.addMember(progressLabel);
 		this.addChild(vl);
 	}
 
+	private void resetText() {
+		// TODO Auto-generated method stub
+		progressLabel.setContents("");
+		uploader.setButtonText("<span class=\"buttonText\">Click to Upload</span>"); 
+	}
 }
