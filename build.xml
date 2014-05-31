@@ -48,7 +48,7 @@
 				<path refid="project.class.path"/>
 			</classpath>
 			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
-			<jvmarg value="-Xmx600M"/>
+			<jvmarg value="-Xmx2000m"/>
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
 			<!-- <arg value="-style"   /><arg value="PRETTY"/> -->
 			<!-- <arg value="-optimize"/><arg value="0"     /> -->
@@ -62,7 +62,7 @@
 				<pathelement location="src"/>
 				<path refid="project.class.path"/>
 			</classpath>
-			<jvmarg value="-Xmx600M"/>
+			<jvmarg value="-Xms64m -Xmx2048m"/>
 			<arg value="-startupUrl"/>
 			<arg value="TMobile.html"/>
 			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
