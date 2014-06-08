@@ -17,14 +17,26 @@
   </servlet-mapping>
   
   
-      <servlet>
-    <servlet-name>uploadServlet</servlet-name>
-    <servlet-class>com.emerge.TMobile.server.servlets.UploadFileServlet</servlet-class>
+   <servlet>
+    <servlet-name>uploadVisServlet</servlet-name>
+    <servlet-class>com.emerge.TMobile.server.servlets.UploadVisFileServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>uploadServlet</servlet-name>
-    <url-pattern>/tmobile/uploadServlet</url-pattern>
+    <servlet-name>uploadVisServlet</servlet-name>
+    <url-pattern>/tmobile/uploadVisServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <servlet-name>uploadVrhServlet</servlet-name>
+    <servlet-class>com.emerge.TMobile.server.servlets.UploadVrhFileServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>uploadVrhServlet</servlet-name>
+    <url-pattern>/tmobile/uploadVrhServlet</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
