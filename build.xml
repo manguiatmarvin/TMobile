@@ -18,7 +18,7 @@
 	</path>
 
 	<target name="libs" description="Copy libs to WEB-INF/lib">
-	    <copy todir="war/WEB-INF/">
+	    <copy todir="war/WEB-INF/lib/">
 		    <fileset dir="lib"/>
 		  </copy>
 		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
