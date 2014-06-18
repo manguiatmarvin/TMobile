@@ -39,9 +39,6 @@ public class TMobile implements EntryPoint {
 
 	public void onModuleLoad() {
 		eventDS = new AuditDs();
-		eventDS.setOffSet(0);
-		eventDS.setNoOfRecords(10);
-		
 		RootPanel.get("loadingWrapper").clear(true);
 	
 	        Calendar calendar = new Calendar();  
