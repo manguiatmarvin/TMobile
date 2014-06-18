@@ -2,6 +2,7 @@ package com.emerge.TMobile.client;
 
 import java.util.List;
 
+import com.emerge.TMobile.client.DataSources.AuditDs;
 import com.emerge.TMobile.client.Models.Audit;
 import com.emerge.TMobile.client.Services.AuditService;
 import com.emerge.TMobile.client.Services.AuditServiceAsync;
@@ -10,10 +11,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Canvas;
 import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.Label;
+import com.smartgwt.client.widgets.calendar.Calendar;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
 
@@ -32,35 +35,29 @@ public class TMobile implements EntryPoint {
 
 	private int offSet = 0;
 	private int noOfRecords = 3;
-
-
+	private AuditDs eventDS;
 
 	public void onModuleLoad() {
+		eventDS = new AuditDs();
+		eventDS.setOffSet(0);
+		eventDS.setNoOfRecords(10);
 		
 		RootPanel.get("loadingWrapper").clear(true);
-        
-     	
-     	
-		
-		IButton btn  = new IButton();
-		btn.setTitle("Test");
-		
-		btn.addClickHandler(new com.smartgwt.client.widgets.events.ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-                refreshGrid();
-			}
-			
-		});
-		
-		
-		vl = new VLayout();
-		main = new VLayout();
-		main.addMember(btn);
-		main.addMember(vl);
-		main.draw();
+	
+	        Calendar calendar = new Calendar();  
+	        calendar.setShowWeekends(true);  
+	        calendar.setShowWorkday(false);  
+	        calendar.setShowDayView(false);
+	        calendar.setShowWeekView(false);
+	        
+	        calendar.setScrollToWorkday(false);  
+	        calendar.setDataSource(eventDS.getInstance());
+	        calendar.setAutoFetchData(true);  
+	        calendar.setWidth(640);
+	        calendar.setHeight(480);
+	        calendar.setAlign(Alignment.CENTER);
+	        
+	        calendar.draw();
 		
 //		String initToken = History.getToken();
 //		if (initToken.length() == 0) {
