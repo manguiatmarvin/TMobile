@@ -6,6 +6,7 @@ import com.emerge.TMobile.client.DataSources.AuditDs;
 import com.emerge.TMobile.client.Models.Audit;
 import com.emerge.TMobile.client.Services.AuditService;
 import com.emerge.TMobile.client.Services.AuditServiceAsync;
+import com.emerge.TMobile.client.widgets.AuditCalendar;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.History;
@@ -18,7 +19,13 @@ import com.smartgwt.client.widgets.IButton;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.calendar.Calendar;
 import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.calendar.Calendar;  
+import com.smartgwt.client.widgets.calendar.CalendarEvent;  
+import com.smartgwt.client.widgets.calendar.events.DayBodyClickEvent;  
+import com.smartgwt.client.widgets.calendar.events.DayBodyClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
+
+import java.util.Date;  
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -31,30 +38,16 @@ public class TMobile implements EntryPoint {
 	private VLayout vl;
 	private VLayout main;
 
-
-
 	private int offSet = 0;
 	private int noOfRecords = 3;
 	private AuditDs eventDS;
-
+    private AuditCalendar auditCalendar;
 	public void onModuleLoad() {
 		eventDS = new AuditDs();
+		auditCalendar = new AuditCalendar();
 		RootPanel.get("loadingWrapper").clear(true);
-	
-	        Calendar calendar = new Calendar();  
-	        calendar.setShowWeekends(true);  
-	        calendar.setShowWorkday(false);  
-	        calendar.setShowDayView(false);
-	        calendar.setShowWeekView(false);
-	        
-	        calendar.setScrollToWorkday(false);  
-	        calendar.setDataSource(eventDS.getInstance());
-	        calendar.setAutoFetchData(true);  
-	        calendar.setWidth(640);
-	        calendar.setHeight(480);
-	        calendar.setAlign(Alignment.CENTER);
-	        
-	        calendar.draw();
+		auditCalendar.setDataSource(eventDS.getInstance()); 
+		auditCalendar.draw();
 		
 //		String initToken = History.getToken();
 //		if (initToken.length() == 0) {

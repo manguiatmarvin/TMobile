@@ -1,5 +1,6 @@
 package com.emerge.TMobile.client;
 
+
 import com.emerge.TMobile.client.pages.Audit;
 import com.emerge.TMobile.client.pages.CommHub;
 import com.emerge.TMobile.client.pages.Index;
@@ -8,12 +9,12 @@ import com.emerge.TMobile.client.widgets.MainWindow;
 import com.emerge.TMobile.shared.QueryString;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.smartgwt.client.widgets.Canvas;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.smartgwt.client.widgets.Canvas;
 
 public class HistoryListener implements ValueChangeHandler<String> {
-	MainWindow mainWindow = MainWindow.getInstance("");
-	Canvas managePanel;
+	private MainWindow mainWindow;
+	private Canvas managePanel;
 
 	public HistoryListener() {
 		
@@ -33,7 +34,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 				RootPanel.get().remove(mainWindow);
 			}
 
-			mainWindow = new MainWindow("TMobile :: Index");
+			mainWindow = new MainWindow("TMobile :: Index",false);
 			mainWindow.setContent(new Index());
 			RootPanel.get().add(mainWindow);
 
@@ -44,7 +45,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 				RootPanel.get().remove(mainWindow);
 			}
 
-			mainWindow = new MainWindow("TMobile :: Audit");
+			mainWindow = new MainWindow("TMobile :: Audit",false);
 			mainWindow.setContent(new Audit());
 			RootPanel.get().add(mainWindow);
 
@@ -55,7 +56,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 				RootPanel.get().remove(mainWindow);
 			}
 
-			mainWindow = new MainWindow("TMobile :: Reporting");
+			mainWindow = new MainWindow("TMobile :: Reporting",false);
 			mainWindow.setContent(new Reporting());
 			RootPanel.get().add(mainWindow);
 
@@ -66,7 +67,7 @@ public class HistoryListener implements ValueChangeHandler<String> {
 				RootPanel.get().remove(mainWindow);
 			}
 
-			mainWindow = new MainWindow("TMobile :: Communication");
+			mainWindow = new MainWindow("TMobile :: Communication",false);
 			mainWindow.setContent(new CommHub());
 			RootPanel.get().add(mainWindow);
 
