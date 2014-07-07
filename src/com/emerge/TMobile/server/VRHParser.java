@@ -287,7 +287,7 @@ public class VRHParser {
 			      if(row.getCell(col) != null){
 			    	  if (row.getCell(col).getCellType() == 0) {
 							double floatVal = row.getCell(col).getNumericCellValue();
-							this.setVrhSalesPerson("Numeric : "+String.valueOf(floatVal));
+							this.setVrhSalesPerson(String.valueOf(floatVal));
 							
 						} else if (row.getCell(col).getCellType() == 1) {
 							this.setVrhSalesPerson("String : "+row.getCell(col).getStringCellValue());

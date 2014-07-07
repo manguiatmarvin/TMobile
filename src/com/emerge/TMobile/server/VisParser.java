@@ -294,8 +294,8 @@ public class VisParser {
 			      col = 18;
 			      if(row.getCell(col) != null){
 			    	  if (row.getCell(col).getCellType() == 0) {
-							double floatVal = row.getCell(col).getNumericCellValue();
-							this.setVisIMEI("Numeric : "+String.valueOf(floatVal));
+							double intVal = row.getCell(col).getNumericCellValue();
+							this.setVisIMEI(String.valueOf(intVal));
 							
 						} else if (row.getCell(col).getCellType() == 1) {
 							this.setVisIMEI("String : "+row.getCell(col).getStringCellValue());
@@ -514,7 +514,7 @@ public class VisParser {
 			    	  this.setVisEIP("");
 			      }
 			      
-			      if(loopRan < 3){ // print first 3 only
+		
 			    	  System.out.println("Row : "+i);
 			    	  System.out.println("Sales Code : "+this.getVisSalesCode());
 		                 
@@ -553,7 +553,7 @@ public class VisParser {
 		                 System.out.println("EIP : "+this.getVisEIP());
 		                 
 		                 System.out.println("___________________________________________"); 
-			      }
+			      
                       
              }  
             i = i-1;
