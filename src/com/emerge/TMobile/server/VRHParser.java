@@ -3,6 +3,9 @@ package com.emerge.TMobile.server;
 import java.io.File;
 import java.util.Date;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -30,7 +33,7 @@ public class VRHParser {
 	private String  vrhRatePlan;
 	private String  vrhCustomer;
 	private String  vrhSalesPerson;
-	private String  vrhSoldOn;
+	private Date  vrhSoldOn;
 	private String  vrhInvoicedBy;
 	private String  vrhPortNumber;
 	private File file;
@@ -45,6 +48,13 @@ public class VRHParser {
         try{
             // Create a workbook using the File System 
             Workbook myWorkBook  = WorkbookFactory.create(this.getFile());
+            
+            CellStyle cellStyle = myWorkBook.createCellStyle();
+	    	CreationHelper createHelper = myWorkBook.getCreationHelper();
+	    	  
+	    	  
+	    	  
+	    	  
             // Get the first sheet from workbook 
             Sheet sheet = myWorkBook.getSheetAt(0);
             Row row; 
@@ -107,7 +117,7 @@ public class VRHParser {
 				
 				
 				//3.) QTY 3
-				col = 3;
+				col = 2;
 				if(row.getCell(col) != null){
 					if (row.getCell(col).getCellType() == 0) {
 						this.setVrhQTY( String.valueOf(row.getCell(col)
@@ -232,7 +242,7 @@ public class VRHParser {
 			      }
 			      
 			      
-			      // 8.) Rate Plan 16
+			      // 8.) Rate Plan 15
 			      col = 16;
 			      if(row.getCell(col) != null){
 			    	  if (row.getCell(col).getCellType() == 0) {
@@ -282,15 +292,19 @@ public class VRHParser {
 			      }
 			      
 			      
-			      // 10.) Sales Person
+			      
+			      
+			      
+			      // 10.) Sales Person 19
+			      
+			      // 9.) Customer  18
 			      col = 19;
 			      if(row.getCell(col) != null){
 			    	  if (row.getCell(col).getCellType() == 0) {
-							double floatVal = row.getCell(col).getNumericCellValue();
-							this.setVrhSalesPerson(String.valueOf(floatVal));
-							
+							this.setVrhSalesPerson( String.valueOf(row.getCell(col)
+									.getNumericCellValue()));
 						} else if (row.getCell(col).getCellType() == 1) {
-							this.setVrhSalesPerson("String : "+row.getCell(col).getStringCellValue());
+							this.setVrhSalesPerson(row.getCell(col).getStringCellValue());
 						}else if(row.getCell(col).getCellType() == 2){
 							this.setVrhSalesPerson("_FORMULA");
 						} else if (row.getCell(col).getCellType() == 3) {
@@ -311,25 +325,12 @@ public class VRHParser {
 			      // 11.) Sold on 21
 			      col = 21;
 			      if(row.getCell(col) != null){
-			    	  if (row.getCell(col).getCellType() == 0) {
-							this.setVrhSalesPerson( String.valueOf(row.getCell(col)
-									.getNumericCellValue()));
-						} else if (row.getCell(col).getCellType() == 1) {
-							this.setVrhSalesPerson(row.getCell(col).getStringCellValue());
-						}else if(row.getCell(col).getCellType() == 2){
-							this.setVrhSalesPerson("_FORMULA");
-						} else if (row.getCell(col).getCellType() == 3) {
-							this.setVrhSalesPerson("_BLANK");
-						}else if(row.getCell(col).getCellType()== 4){
-							this.setVrhSalesPerson("_BOOLEAN");
-						}else if(row.getCell(col).getCellType()==5){
-							this.setVrhSalesPerson("_ERROR");
-					    }else{
-							this.setVrhSalesPerson("CAN BE DATE");
-					      }
-			        
-			      }else{
-			    	  this.setVrhSalesPerson("");
+			    	  cellStyle.setDataFormat(
+				    	      createHelper.createDataFormat().getFormat("yyyy/mm/dd hh:mm:ss"));
+			    	  
+			    	  row.getCell(col).setCellStyle(cellStyle);
+			    	  this.setVrhSoldOn(row.getCell(col).getDateCellValue());
+			    	 
 			      }
 			      
 			      
@@ -359,7 +360,7 @@ public class VRHParser {
 			      			      
 			      
 			      // 13.) Port Number 40
-			      col =40;
+			      col = 40;
 			      if(row.getCell(col) != null){
 			    	  
 			    	  if (row.getCell(col).getCellType() == 0) {
@@ -386,7 +387,7 @@ public class VRHParser {
 			      
 			   
 			      
-			      if(loopRan < 3){ // print first 3 only
+			      if(loopRan < 28){ // print first 3 only
 			    	  System.out.println("Row : "+i);
 			    	  System.out.println("Invoice Number : "+this.getVrhInvoiceNumber());
 		                 
@@ -492,10 +493,10 @@ public class VRHParser {
 	public void setVrhSalesPerson(String vrhSalesPerson) {
 		this.vrhSalesPerson = vrhSalesPerson;
 	}
-	public String getVrhSoldOn() {
+	public Date getVrhSoldOn() {
 		return vrhSoldOn;
 	}
-	public void setVrhSoldOn(String vrhSoldOn) {
+	public void setVrhSoldOn(Date vrhSoldOn) {
 		this.vrhSoldOn = vrhSoldOn;
 	}
 	public String getVrhInvoicedBy() {

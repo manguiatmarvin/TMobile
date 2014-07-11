@@ -17,10 +17,6 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class Index extends Canvas {
 	VerticalContainer vc;
 
-	private Label progressLabel;
-	private Uploader uploader;
-    
-    
 	public Index() {
 		super();
 		this.setWidth100();

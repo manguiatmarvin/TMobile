@@ -67,9 +67,10 @@ public class VisParser {
 				//1.)  Sales Code col 0
                  col = 0;
                 if(row.getCell(col) != null){
-					if (row.getCell(col).getCellType() == 0) {
-						this.setVisSalesCode( String.valueOf(row.getCell(col)
-								.getNumericCellValue()));
+					if (row.getCell(col).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+						row.getCell(col).setCellType(Cell.CELL_TYPE_STRING);
+						
+						this.setVisSalesCode(row.getCell(col).getStringCellValue());
 					} else if (row.getCell(col).getCellType() == 1) {
 						this.setVisSalesCode(row.getCell(col).getStringCellValue());
 					}else if(row.getCell(col).getCellType() == 2){
@@ -243,9 +244,13 @@ public class VisParser {
 			      // 8.) Service Number 15
 			      col = 15;
 			      if(row.getCell(col) != null){
-			    	  if (row.getCell(col).getCellType() == 0) {
-							this.setVisServiceNumber( String.valueOf(row.getCell(col)
-									.getNumericCellValue()));
+			    	  if (row.getCell(col).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+						// force the current cell to String 
+			    		  row.getCell(col).setCellType(Cell.CELL_TYPE_STRING);
+			    		  
+			    		  this.setVisServiceNumber( String.valueOf(row.getCell(col)
+									.getStringCellValue()));
+			    		  
 						} else if (row.getCell(col).getCellType() == 1) {
 							this.setVisServiceNumber(row.getCell(col).getStringCellValue());
 						}else if(row.getCell(col).getCellType() == 2){
@@ -293,9 +298,12 @@ public class VisParser {
 			      // 10.) IMEI 18
 			      col = 18;
 			      if(row.getCell(col) != null){
-			    	  if (row.getCell(col).getCellType() == 0) {
-							double intVal = row.getCell(col).getNumericCellValue();
-							this.setVisIMEI(String.valueOf(intVal));
+			    	  if (row.getCell(col).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+							
+			    		  
+			    		    row.getCell(col).setCellType(Cell.CELL_TYPE_STRING);
+							
+							this.setVisIMEI(String.valueOf(row.getCell(col).getStringCellValue()));
 							
 						} else if (row.getCell(col).getCellType() == 1) {
 							this.setVisIMEI("String : "+row.getCell(col).getStringCellValue());
@@ -370,9 +378,11 @@ public class VisParser {
 			      col =25;
 			      if(row.getCell(col) != null){
 			    	  
-			    	  if (row.getCell(col).getCellType() == 0) {
-							this.setVisBAN( String.valueOf(row.getCell(col)
-									.getNumericCellValue()));
+			    	  if (row.getCell(col).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+			    		  row.getCell(col).setCellType(Cell.CELL_TYPE_STRING);
+							this.setVisBAN(row.getCell(col)
+									.getStringCellValue());
+							
 						} else if (row.getCell(col).getCellType() == 1) {
 							this.setVisBAN(row.getCell(col).getStringCellValue());
 						}else if(row.getCell(col).getCellType() == 2){
