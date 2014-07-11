@@ -215,16 +215,14 @@ public class VRHParser {
 				  }
 			      
 			    
-			    // 7.) Related SN
+                 // related SN
 				  col = 13;
-			      if(row.getCell(col) != null){
-			    	  
-			    	  if (row.getCell(col).getCellType() == 0) {
-					     Date strDate = row.getCell(col).getDateCellValue();
-					     this.setVrhRelatedSN(String.valueOf(strDate));
-					     
+				  if(row.getCell(col) != null){
+					  if (row.getCell(col).getCellType() == 0) {
+						  row.getCell(col).setCellType(Cell.CELL_TYPE_STRING);
+							this.setVrhRelatedSN(row.getCell(col).getStringCellValue());
 						} else if (row.getCell(col).getCellType() == 1) {
-							this.setVrhRelatedSN("String 1 "+row.getCell(col).getStringCellValue());
+							this.setVrhRelatedSN(row.getCell(col).getStringCellValue());
 						}else if(row.getCell(col).getCellType() == 2){
 							this.setVrhRelatedSN("_FORMULA");
 						} else if (row.getCell(col).getCellType() == 3) {
@@ -234,12 +232,12 @@ public class VRHParser {
 						}else if(row.getCell(col).getCellType()==5){
 							this.setVrhRelatedSN("_ERROR");
 					    }else{
-							this.setVrhRelatedSN("Date: "+String.valueOf(row.getCell(col).getDateCellValue()));
+							this.setVrhRelatedSN("CAN BE DATE");
 					      }
-				      
-			      }else{
-			    	  this.setVrhRelatedSN("");
-			      }
+			      
+				  }else{
+					  this.setVrhRelatedSN("");
+				  }
 			      
 			      
 			      // 8.) Rate Plan 15
