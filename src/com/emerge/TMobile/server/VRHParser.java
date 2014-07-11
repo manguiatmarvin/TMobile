@@ -94,9 +94,10 @@ public class VRHParser {
 				//2.)  Tracking Number  1
 				col = 1;
 				if(row.getCell(col) != null){
-					if (row.getCell(col).getCellType() == 0) {
-						this.setVrhTrackingNumber( String.valueOf(row.getCell(col)
-								.getNumericCellValue()));
+					if (row.getCell(col).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+						row.getCell(col).setCellType(Cell.CELL_TYPE_STRING);
+						
+						this.setVrhTrackingNumber(row.getCell(col).getStringCellValue());
 					} else if (row.getCell(col).getCellType() == 1) {
 						this.setVrhTrackingNumber(row.getCell(col).getStringCellValue());
 					}else if(row.getCell(col).getCellType() == 2){
