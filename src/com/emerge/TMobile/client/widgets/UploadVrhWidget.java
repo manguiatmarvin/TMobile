@@ -14,6 +14,7 @@ import org.moxieapps.gwt.uploader.client.events.UploadProgressHandler;
 import org.moxieapps.gwt.uploader.client.events.UploadSuccessEvent;
 import org.moxieapps.gwt.uploader.client.events.UploadSuccessHandler;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
@@ -39,7 +40,7 @@ public class UploadVrhWidget  extends Canvas{
 		
 		uploader.setPostParams(params);
 		
-		uploader.setUploadURL("http://localhost:8080/TMobile/tmobile/uploadVrhServlet")
+		uploader.setUploadURL(GWT.getModuleBaseURL()+"/uploadVrhServlet")
 				.setButtonText(
 						"<span class=\"buttonText\">Click to Upload VRH</span>")
 				.setButtonTextStyle(
@@ -128,6 +129,6 @@ public class UploadVrhWidget  extends Canvas{
 	private void resetText() {
 		// TODO Auto-generated method stub
 		progressLabel.setContents("");
-		uploader.setButtonText("<span class=\"buttonText\">Click to Upload</span>"); 
+		uploader.setButtonText("<span class=\"buttonText\">Upload new</span>"); 
 	}
 }

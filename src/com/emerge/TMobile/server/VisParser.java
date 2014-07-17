@@ -1,6 +1,9 @@
 package com.emerge.TMobile.server;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -28,7 +31,7 @@ public class VisParser {
 	private String visPlanDesc;
 	private String visProductType;
 	private String visTransactionType;
-	private String visActivationDate;
+	private Date visActivationDate;
 	private String visServiceNumber;
 	private String visCustomerName;
 	private String visIMEI;
@@ -41,16 +44,26 @@ public class VisParser {
 	private String visSubsidy;
 	private String visEIP;
 	private File file;
-	
-	
+	private String visSql;
+	private static final String SQL_IMPORT_DIRECTORY = "vis_imports";
+	private StringBuilder builder;
+	private java.text.SimpleDateFormat sdf;
 
 
 	public VisParser(){
 	}
     
     public int processVisXLSXFile(){
-    
+    	
+    	
         try{
+        	builder = new StringBuilder();
+     
+		   /* java.text.SimpleDateFormat sdf = 
+		           new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");*/
+        	
+        	sdf =  new java.text.SimpleDateFormat("yyyy-MM-dd");
+		      
             // Create a workbook using the File System 
             Workbook myWorkBook  = WorkbookFactory.create(this.getFile());
             // Get the first sheet from workbook 
@@ -220,24 +233,10 @@ public class VisParser {
 			    	  
 			    	  if (row.getCell(col).getCellType() == 0) {
 					     Date strDate = row.getCell(col).getDateCellValue();
-					     this.setVisActivationDate(String.valueOf(strDate));
+					     this.setVisActivationDate(strDate);
 					     
-						} else if (row.getCell(col).getCellType() == 1) {
-							this.setVisActivationDate("String 1 "+row.getCell(col).getStringCellValue());
-						}else if(row.getCell(col).getCellType() == 2){
-							this.setVisActivationDate("_FORMULA");
-						} else if (row.getCell(col).getCellType() == 3) {
-							this.setVisActivationDate("_BLANK");
-						}else if(row.getCell(col).getCellType()== 4){
-							this.setVisActivationDate("_BOOLEAN");
-						}else if(row.getCell(col).getCellType()==5){
-							this.setVisActivationDate("_ERROR");
-					    }else{
-							this.setVisActivationDate("Date: "+String.valueOf(row.getCell(col).getDateCellValue()));
-					      }
+			    	  }
 				      
-			      }else{
-			    	  this.setVisActivationDate("");
 			      }
 			      
 			      
@@ -523,8 +522,30 @@ public class VisParser {
 			      }else{
 			    	  this.setVisEIP("");
 			      }
-			      
-		
+			           
+			     
+			           String ac_date = sdf.format(this.getVisActivationDate());
+			           
+		               String sqlStr = "INSERT INTO vis set vis_sales_code = '"+this.getVisSalesCode()+"', ";
+		               sqlStr += "vis_montly_access = '"+this.getVisMontlyAccess()+"', ";
+		               sqlStr += "vis_plan_code = '"+this.getVisPlanCode()+"', ";
+		               sqlStr += "vis_plan_desc = '"+this.getVisPlanDesc()+"', ";
+		               sqlStr += "vis_product_type = '"+this.getVisProductType()+"', ";
+		               sqlStr += "vis_transaction_type = '"+this.getVisTransactionType()+"', ";
+		               sqlStr += "vis_activation_date = '"+ac_date+"', ";
+		               sqlStr += "vis_service_number = '"+this.getVisServiceNumber()+"', ";
+		               sqlStr += "vis_customer_name = '"+this.getVisCustomerName()+"', ";
+		               sqlStr += "vis_ime = '"+this.getVisIMEI()+"', ";
+		               sqlStr += "vis_deposite = '"+this.getVisDeposit()+"', ";
+		               sqlStr += "vis_credit_class = '"+this.getVisCreditClass()+"', ";
+		               sqlStr += "vis_ban = '"+this.getVisBAN()+"', ";
+		               sqlStr += "vis_ebtv_voice = '"+this.getVisEBTVVoice()+"' ";
+		            
+		               
+		               builder.append(sqlStr+"\n");
+		             
+		               
+		             
 			    	  System.out.println("Row : "+i);
 			    	  System.out.println("Sales Code : "+this.getVisSalesCode());
 		                 
@@ -563,12 +584,22 @@ public class VisParser {
 		                 System.out.println("EIP : "+this.getVisEIP());
 		                 
 		                 System.out.println("___________________________________________"); 
+		                 
+		                 
 			      
                       
              }  
             i = i-1;
             System.out.println("Total Rows processed:  "+i+" Loop Ran: "+loopRan);
             System.out.println("Success import excel to mysql table ");  
+            
+  
+            File file = new File("/home/marvin/tmobile_resources/vis_import.sql");
+            file.getParentFile().mkdirs();
+            
+            PrintWriter writer = new PrintWriter(file);
+            writer.write(builder.toString());
+            writer.close();
              
         }
         catch (Exception e){
@@ -627,12 +658,12 @@ public class VisParser {
 		this.visTransactionType = visTransactionType;
 	}
 
-	public String getVisActivationDate() {
+	public Date getVisActivationDate() {
 		return visActivationDate;
 	}
 
-	public void setVisActivationDate(String visActivationDate) {
-		this.visActivationDate = visActivationDate;
+	public void setVisActivationDate(Date strDate) {
+		this.visActivationDate = strDate;
 	}
 
 	public String getVisServiceNumber() {
@@ -729,6 +760,14 @@ public class VisParser {
 
 	public void setFile(File file) {
 		this.file = file;
+	}
+	
+	public String getVisSql() {
+		return visSql;
+	}
+
+	public void setVisSql(String visSql) {
+		this.visSql = visSql;
 	}
 
 

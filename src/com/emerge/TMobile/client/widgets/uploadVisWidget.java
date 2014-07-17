@@ -11,6 +11,7 @@ import org.moxieapps.gwt.uploader.client.events.UploadProgressEvent;
 import org.moxieapps.gwt.uploader.client.events.UploadProgressHandler;
 import org.moxieapps.gwt.uploader.client.events.UploadSuccessEvent;
 import org.moxieapps.gwt.uploader.client.events.UploadSuccessHandler;
+import com.google.gwt.core.client.GWT;
 
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.json.client.JSONObject;
@@ -45,7 +46,7 @@ public class uploadVisWidget  extends Canvas{
 		
 		uploader.setPostParams(params);
 		
-		uploader.setUploadURL("http://localhost:8080/TMobile/tmobile/uploadVisServlet")
+		uploader.setUploadURL(GWT.getModuleBaseURL()+"/uploadVisServlet")
 				.setButtonText(
 						"<span class=\"buttonText\">Click to Upload VIS</span>")
 				.setButtonTextStyle(
@@ -139,6 +140,6 @@ public class uploadVisWidget  extends Canvas{
 		// TODO Auto-generated method stub
 		progressLabel.setContents("");
 		pbar1.hide();
-		uploader.setButtonText("<span class=\"buttonText\">Click to Upload</span>"); 
+		uploader.setButtonText("<span class=\"buttonText\">Upload new</span>"); 
 	}
 }

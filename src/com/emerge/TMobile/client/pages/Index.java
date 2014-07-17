@@ -16,7 +16,9 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 public class Index extends Canvas {
 	VerticalContainer vc;
-
+    private boolean visUploaded = false;
+    private boolean vrhUploaded = false;
+    
 	public Index() {
 		super();
 		this.setWidth100();
