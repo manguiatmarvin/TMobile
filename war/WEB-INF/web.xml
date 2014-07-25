@@ -48,6 +48,16 @@
     <url-pattern>/tmobile/uploadVrhServlet</url-pattern>
   </servlet-mapping>
   
+    <servlet>
+	 <servlet-name>JobManagerServlet</servlet-name>
+	 <servlet-class>com.emerge.TMobile.server.servlets.JobManagerServlet</servlet-class>
+	 <init-param>
+        <param-name>shutdown-on-unload</param-name>
+        <param-value>true</param-value>
+     </init-param>
+     <load-on-startup>1</load-on-startup>
+	</servlet>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>TMobile.html</welcome-file>
